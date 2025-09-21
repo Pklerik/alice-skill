@@ -2,8 +2,12 @@ package store
 
 import (
 	"context"
+	"errors"
 	"time"
 )
+
+// ErrConflict указывает на конфликт данных в хранилище.
+var ErrConflict = errors.New("data conflict")
 
 // MessageStore описывает абстрактное хранилище сообщений пользователей
 type MessageStore interface {
@@ -16,8 +20,7 @@ type MessageStore interface {
 	// SaveMessage сохраняет новое сообщение
 	SaveMessage(ctx context.Context, userID string, msg Message) error
 	// RegisterUser регистрирует нового пользователя
-    RegisterUser(ctx context.Context, userID, username string) error
-}
+	RegisterUser(ctx context.Context, userID, username string) error
 }
 
 // Message описывает объект сообщения
